@@ -1,9 +1,15 @@
 import React from "react";
+import axios from "axios"
 
 import ReInputField from "../ReInputField/ReInputField";
 
 import { addProfile } from "../../redux/profilesAction";
-import { Data } from "../../redux/profilesReducer";
+interface Data {
+    profile_picture: string,
+    name: string,
+    email: string,
+    phone_number: string
+}
 
 export default function AddProfile() {
     const [inputs, setInputs] = React.useState<Data>({
@@ -19,15 +25,23 @@ export default function AddProfile() {
         setInputs(newInputs);
     }
 
-    const addProfileToStore = (event: React.FormEvent<HTMLFormElement>) => {
+    const createProfile = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        addProfile(inputs);
+
+        axios
+            .post("/profile", inputs)
+            .then((res) => {
+                addProfile(res.data.profile)
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     }
 
     return (
         <div>
             <h3>Add Profile</h3>
-            <form onSubmit={addProfileToStore}>
+            <form onSubmit={createProfile}>
                 {
                     Object.keys(inputs).map((key: string) => {
                         return <ReInputField key={key} name={key} value={inputs[key as keyof typeof inputs]} changeInput={changeInput} />

@@ -12,8 +12,8 @@ export default function ProfileList() {
             <button>Clear</button>
             <div>
                 {
-                    profiles.map((profile: Data, index: number) => {
-                        return <ProfileCard key={index} profile={profile} index={index} />
+                    profiles.map((profile: Data) => {
+                        return <ProfileCard key={profile._id} profile={profile} />
                     })
                 }
             </div>

@@ -12,3 +12,10 @@ export const addProfile = (data: Data) => {
         payload: data
     });
 };
+
+export const deleteProfile = (data: Data) => {
+    store.dispatch({
+        type: "DELETE",
+        payload: data
+    })
+}

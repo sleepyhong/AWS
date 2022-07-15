@@ -14,7 +14,20 @@ export default function ReInputField(props: Input) {
     return (
         <div>
             <label htmlFor={name}>{name}</label>
-            <input id={name} name={name} value={value} onChange={(event: React.ChangeEvent<HTMLInputElement>) => {changeInput(event)}} />
+            <input
+                id={name}
+                name={name}
+                value={value}
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) => { changeInput(event) }}
+                type={
+                    {
+                        "profile_picture": "file",
+                        "name": "text",
+                        "email": "email",
+                        "phone_number": "tel"
+                    }[name]
+                }
+            />
         </div>
     );
 }
