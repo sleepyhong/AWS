@@ -20,6 +20,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.get("/profiles", ProfileRouter.getProfiles);
 app.post("/profile", ProfileRouter.addProfile);
 app.delete("/profile/:profileId", ProfileRouter.deleteProfile);
+app.put("/profile/:profileId", ProfileRouter.updateProfile);
 
 app.listen(port, () => {
     console.log(`Server is running at port ${port}`);

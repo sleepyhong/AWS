@@ -23,6 +23,17 @@ export function profilesReducer(preState: Data[] = [], action: Action) {
                 }
             }
             return stateAfterDelete;
+        case "UPDATE":
+            const stateAfterUpdate = [...preState];
+            for (let i = 0; i < stateAfterUpdate.length; i++) {
+                if (stateAfterUpdate[i]._id === action.payload._id) {
+                    stateAfterUpdate[i] = action.payload;
+                    break;
+                }
+            }
+            return stateAfterUpdate;
+        case "CLEAR":
+            return [];
         default:
             return preState;
     }

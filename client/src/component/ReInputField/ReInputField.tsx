@@ -3,7 +3,8 @@ import React from "react";
 interface Input {
     name: string,
     value: string,
-    changeInput: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    changeInput: (event: React.ChangeEvent<HTMLInputElement>) => void,
+    disabled: boolean
 }
 
 export default function ReInputField(props: Input) {
@@ -12,9 +13,10 @@ export default function ReInputField(props: Input) {
     const changeInput: (event: React.ChangeEvent<HTMLInputElement>) => void = props.changeInput;
 
     return (
-        <div>
+        <div className="form-group">
             <label htmlFor={name}>{name}</label>
             <input
+                className="form-control"
                 id={name}
                 name={name}
                 value={value}
@@ -27,6 +29,7 @@ export default function ReInputField(props: Input) {
                         "phone_number": "tel"
                     }[name]
                 }
+                disabled={props.disabled}
             />
         </div>
     );

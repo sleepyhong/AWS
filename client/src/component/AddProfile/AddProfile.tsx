@@ -4,6 +4,9 @@ import axios from "axios"
 import ReInputField from "../ReInputField/ReInputField";
 
 import { addProfile } from "../../redux/profilesAction";
+
+import 'bootstrap/dist/css/bootstrap.css';
+
 interface Data {
     profile_picture: string,
     name: string,
@@ -39,15 +42,15 @@ export default function AddProfile() {
     }
 
     return (
-        <div>
+        <div className="col-xl-6">
             <h3>Add Profile</h3>
             <form onSubmit={createProfile}>
                 {
                     Object.keys(inputs).map((key: string) => {
-                        return <ReInputField key={key} name={key} value={inputs[key as keyof typeof inputs]} changeInput={changeInput} />
+                        return <ReInputField key={key} name={key} value={inputs[key as keyof typeof inputs]} changeInput={changeInput} disabled={false} />
                     })
                 }
-                <button type="submit">Submit</button>
+                <button type="submit" className="btn btn-primary">Submit</button>
             </form>
         </div>
     )

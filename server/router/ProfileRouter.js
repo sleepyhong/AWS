@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteProfile = exports.addProfile = exports.getProfiles = void 0;
+exports.updateProfile = exports.deleteProfile = exports.addProfile = exports.getProfiles = void 0;
 const Profile_1 = __importDefault(require("../model/Profile"));
 const getProfiles = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -70,3 +70,22 @@ const deleteProfile = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     }
 });
 exports.deleteProfile = deleteProfile;
+const updateProfile = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const updatedProfile = yield Profile_1.default.findByIdAndUpdate(req.params.profileId, req.body);
+        res
+            .status(200)
+            .json({
+            msg: "Profile Deleted Successfully",
+            profile: updatedProfile
+        });
+    }
+    catch (error) {
+        res
+            .status(400)
+            .json({
+            msg: String(error)
+        });
+    }
+});
+exports.updateProfile = updateProfile;

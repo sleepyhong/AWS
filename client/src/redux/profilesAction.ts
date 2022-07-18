@@ -19,3 +19,23 @@ export const deleteProfile = (data: Data) => {
         payload: data
     })
 }
+
+export const updateProfile = (data: Data) => {
+    store.dispatch({
+        type: "UPDATE",
+        payload: data
+    })
+}
+
+export const clearProfiles = () => {
+    store.dispatch({
+        type: "CLEAR",
+        payload: {
+            _id: "",
+            profile_picture: "",
+            name: "",
+            email: "",
+            phone_number: ""
+        }
+    })
+}

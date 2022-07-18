@@ -59,3 +59,23 @@ export const deleteProfile = async (req: Request, res: Response) => {
             })
     }
 }   
+
+export const updateProfile = async (req: Request, res: Response) => {
+    try {
+        const updatedProfile = await Profile.findByIdAndUpdate(req.params.profileId, req.body);
+
+        res
+            .status(200)
+            .json({
+                msg: "Profile Deleted Successfully",
+                profile: updatedProfile
+            })
+    }
+    catch (error) {
+        res
+            .status(400)
+            .json({
+                msg: String(error)
+            })
+    }
+}   
