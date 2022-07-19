@@ -2,7 +2,7 @@ import { Action } from "./profilesAction";
 
 export interface Data {
     _id: string,
-    profile_picture: string,
+    profile_picture: boolean,
     name: string,
     email: string,
     phone_number: string

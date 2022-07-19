@@ -32,7 +32,7 @@ export const clearProfiles = () => {
         type: "CLEAR",
         payload: {
             _id: "",
-            profile_picture: "",
+            profile_picture: false,
             name: "",
             email: "",
             phone_number: ""

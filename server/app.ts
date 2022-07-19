@@ -1,5 +1,6 @@
 import cors from "cors";
 import express, {Application} from "express";
+import fileupload from "express-fileupload";
 import bodyParser from "body-parser";
 import dotenv from 'dotenv';
 dotenv.config();
@@ -15,10 +16,12 @@ app.use(express.json());
 app.use(cors({
     origin: '*'
 }));
+app.use(fileupload());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get("/profiles", ProfileRouter.getProfiles);
 app.post("/profile", ProfileRouter.addProfile);
+app.delete("/profiles", ProfileRouter.clearProfiles);
 app.delete("/profile/:profileId", ProfileRouter.deleteProfile);
 app.put("/profile/:profileId", ProfileRouter.updateProfile);
 

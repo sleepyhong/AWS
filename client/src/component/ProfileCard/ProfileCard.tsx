@@ -12,13 +12,20 @@ interface Input {
 
 export default function ProfileCard(props: Input) {
     const [editable, setEditable] = React.useState<boolean>(false);
-    const [inputs, setInputs] = React.useState<Data>(props.profile);
+    const [inputs, setInputs] = React.useState(props.profile);
+    const [image, setImage] = React.useState<File>();
 
     const changeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
         setInputs({
             ...inputs,
             [event.target.name]: event.target.value
         });
+    }
+
+    const changeImage = (event: React.ChangeEvent<HTMLInputElement>) => {
+        if (event.target.files) {
+            setImage(event.target.files[0]);
+        }
     }
 
     const removeProfile = () => {
@@ -31,10 +38,20 @@ export default function ProfileCard(props: Input) {
     }
 
     const updateProfileToDB = () => {
+        const formData = new FormData();
+        formData.append("profile_picture", image!);
+        for (const [key, value] of Object.entries(inputs)) {
+            formData.append(key, value);
+        }
+
         axios
-            .put(`/profile/${props.profile._id}`, inputs)
+            .put(`/profile/${props.profile._id}`, formData)
             .then((res) => {
                 updateProfile(res.data.profile);
+                setInputs({
+                    ...inputs,
+                    profile_picture: res.data.profile.profile_picture
+                });
             })
             .catch((err) => console.log(err));
     }
@@ -54,9 +71,12 @@ export default function ProfileCard(props: Input) {
                         </>
                 }
             </h5>
+            {
+                inputs.profile_picture && <img src={`http://beaconfireawsproject.s3-website-us-east-1.amazonaws.com/${props.profile._id}.png`} />
+            }
             <div>
                 <label htmlFor="profile_picture">Profile Picture</label>
-                <input type="file" name="profile_picture" className="form-control" />
+                <input type="file" name="profile_picture" className="form-control" accept="image/png, image/gif, image/jpeg" onChange={changeImage} disabled={!editable} />
             </div>
             <div>
                 <label htmlFor="name">Name</label>

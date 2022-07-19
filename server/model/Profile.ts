@@ -14,7 +14,7 @@ const profileSchema = new Schema({
         type: String,
         required: true
     },
-    profile_picture: String
+    profile_picture: Boolean
 });
 
 export default mongoose.model("Profile", profileSchema);

@@ -18,6 +18,6 @@ const profileSchema = new Schema({
         type: String,
         required: true
     },
-    profile_picture: String
+    profile_picture: Boolean
 });
 exports.default = mongoose_1.default.model("Profile", profileSchema);
